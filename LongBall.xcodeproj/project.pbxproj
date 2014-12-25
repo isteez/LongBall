@@ -8,11 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		EC8B4F601A4B30D600932D19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8B4F5F1A4B30D600932D19 /* AppDelegate.swift */; };
-		EC8B4F621A4B30D600932D19 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8B4F611A4B30D600932D19 /* ViewController.swift */; };
+		EC8B4F621A4B30D600932D19 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8B4F611A4B30D600932D19 /* DetailViewController.swift */; };
 		EC8B4F651A4B30D600932D19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC8B4F631A4B30D600932D19 /* Main.storyboard */; };
 		EC8B4F671A4B30D600932D19 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC8B4F661A4B30D600932D19 /* Images.xcassets */; };
 		EC8B4F6A1A4B30D600932D19 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = EC8B4F681A4B30D600932D19 /* LaunchScreen.xib */; };
 		EC8B4F761A4B30D600932D19 /* LongBallTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8B4F751A4B30D600932D19 /* LongBallTests.swift */; };
+		EC8B4F801A4B317500932D19 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8B4F7F1A4B317500932D19 /* MainViewController.swift */; };
+		EC8B4F821A4B31F600932D19 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8B4F811A4B31F600932D19 /* DataModel.swift */; };
+		EC8B4F841A4B320800932D19 /* DataObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8B4F831A4B320800932D19 /* DataObject.swift */; };
+		EC8B4F861A4B321D00932D19 /* Data.json in Resources */ = {isa = PBXBuildFile; fileRef = EC8B4F851A4B321D00932D19 /* Data.json */; };
+		EC8B4F8A1A4B442E00932D19 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8B4F891A4B442E00932D19 /* CustomNavigationBar.swift */; };
+		EC8B4F8C1A4B52B400932D19 /* ScheduleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8B4F8B1A4B52B400932D19 /* ScheduleTableViewController.swift */; };
+		EC8B4F8E1A4B59F200932D19 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8B4F8D1A4B59F200932D19 /* PickerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,13 +36,20 @@
 		EC8B4F5A1A4B30D600932D19 /* LongBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LongBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC8B4F5E1A4B30D600932D19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EC8B4F5F1A4B30D600932D19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		EC8B4F611A4B30D600932D19 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		EC8B4F611A4B30D600932D19 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		EC8B4F641A4B30D600932D19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EC8B4F661A4B30D600932D19 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		EC8B4F691A4B30D600932D19 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		EC8B4F6F1A4B30D600932D19 /* LongBallTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LongBallTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC8B4F741A4B30D600932D19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EC8B4F751A4B30D600932D19 /* LongBallTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongBallTests.swift; sourceTree = "<group>"; };
+		EC8B4F7F1A4B317500932D19 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		EC8B4F811A4B31F600932D19 /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		EC8B4F831A4B320800932D19 /* DataObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataObject.swift; sourceTree = "<group>"; };
+		EC8B4F851A4B321D00932D19 /* Data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Data.json; sourceTree = "<group>"; };
+		EC8B4F891A4B442E00932D19 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
+		EC8B4F8B1A4B52B400932D19 /* ScheduleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewController.swift; sourceTree = "<group>"; };
+		EC8B4F8D1A4B59F200932D19 /* PickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,8 +92,9 @@
 			isa = PBXGroup;
 			children = (
 				EC8B4F5F1A4B30D600932D19 /* AppDelegate.swift */,
-				EC8B4F611A4B30D600932D19 /* ViewController.swift */,
 				EC8B4F631A4B30D600932D19 /* Main.storyboard */,
+				EC8B4F881A4B324800932D19 /* Views */,
+				EC8B4F871A4B323E00932D19 /* Model */,
 				EC8B4F661A4B30D600932D19 /* Images.xcassets */,
 				EC8B4F681A4B30D600932D19 /* LaunchScreen.xib */,
 				EC8B4F5D1A4B30D600932D19 /* Supporting Files */,
@@ -90,6 +105,7 @@
 		EC8B4F5D1A4B30D600932D19 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				EC8B4F891A4B442E00932D19 /* CustomNavigationBar.swift */,
 				EC8B4F5E1A4B30D600932D19 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -110,6 +126,27 @@
 				EC8B4F741A4B30D600932D19 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EC8B4F871A4B323E00932D19 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EC8B4F811A4B31F600932D19 /* DataModel.swift */,
+				EC8B4F831A4B320800932D19 /* DataObject.swift */,
+				EC8B4F851A4B321D00932D19 /* Data.json */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		EC8B4F881A4B324800932D19 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				EC8B4F7F1A4B317500932D19 /* MainViewController.swift */,
+				EC8B4F611A4B30D600932D19 /* DetailViewController.swift */,
+				EC8B4F8B1A4B52B400932D19 /* ScheduleTableViewController.swift */,
+				EC8B4F8D1A4B59F200932D19 /* PickerViewController.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -161,6 +198,7 @@
 				TargetAttributes = {
 					EC8B4F591A4B30D600932D19 = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = DZGKZW4Z6F;
 					};
 					EC8B4F6E1A4B30D600932D19 = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -195,6 +233,7 @@
 				EC8B4F651A4B30D600932D19 /* Main.storyboard in Resources */,
 				EC8B4F6A1A4B30D600932D19 /* LaunchScreen.xib in Resources */,
 				EC8B4F671A4B30D600932D19 /* Images.xcassets in Resources */,
+				EC8B4F861A4B321D00932D19 /* Data.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,8 +251,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC8B4F621A4B30D600932D19 /* ViewController.swift in Sources */,
+				EC8B4F8A1A4B442E00932D19 /* CustomNavigationBar.swift in Sources */,
+				EC8B4F801A4B317500932D19 /* MainViewController.swift in Sources */,
+				EC8B4F8E1A4B59F200932D19 /* PickerViewController.swift in Sources */,
+				EC8B4F821A4B31F600932D19 /* DataModel.swift in Sources */,
+				EC8B4F621A4B30D600932D19 /* DetailViewController.swift in Sources */,
+				EC8B4F8C1A4B52B400932D19 /* ScheduleTableViewController.swift in Sources */,
 				EC8B4F601A4B30D600932D19 /* AppDelegate.swift in Sources */,
+				EC8B4F841A4B320800932D19 /* DataObject.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +381,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = LongBall/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -346,6 +392,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = LongBall/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -405,6 +452,7 @@
 				EC8B4F7B1A4B30D600932D19 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		EC8B4F7C1A4B30D600932D19 /* Build configuration list for PBXNativeTarget "LongBallTests" */ = {
 			isa = XCConfigurationList;
@@ -413,6 +461,7 @@
 				EC8B4F7E1A4B30D600932D19 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
