@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C20E0071A4CB82800E17731 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C20E0061A4CB82800E17731 /* EventKit.framework */; };
 		EC8B4F601A4B30D600932D19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8B4F5F1A4B30D600932D19 /* AppDelegate.swift */; };
 		EC8B4F621A4B30D600932D19 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8B4F611A4B30D600932D19 /* DetailViewController.swift */; };
 		EC8B4F651A4B30D600932D19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC8B4F631A4B30D600932D19 /* Main.storyboard */; };
@@ -19,7 +20,6 @@
 		EC8B4F861A4B321D00932D19 /* Data.json in Resources */ = {isa = PBXBuildFile; fileRef = EC8B4F851A4B321D00932D19 /* Data.json */; };
 		EC8B4F8A1A4B442E00932D19 /* CustomNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8B4F891A4B442E00932D19 /* CustomNavigationBar.swift */; };
 		EC8B4F8C1A4B52B400932D19 /* ScheduleTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8B4F8B1A4B52B400932D19 /* ScheduleTableViewController.swift */; };
-		EC8B4F8E1A4B59F200932D19 /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8B4F8D1A4B59F200932D19 /* PickerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +33,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3C20E0061A4CB82800E17731 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		EC8B4F5A1A4B30D600932D19 /* LongBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LongBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC8B4F5E1A4B30D600932D19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EC8B4F5F1A4B30D600932D19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -49,7 +50,6 @@
 		EC8B4F851A4B321D00932D19 /* Data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Data.json; sourceTree = "<group>"; };
 		EC8B4F891A4B442E00932D19 /* CustomNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationBar.swift; sourceTree = "<group>"; };
 		EC8B4F8B1A4B52B400932D19 /* ScheduleTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewController.swift; sourceTree = "<group>"; };
-		EC8B4F8D1A4B59F200932D19 /* PickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C20E0071A4CB82800E17731 /* EventKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +74,7 @@
 		EC8B4F511A4B30D600932D19 = {
 			isa = PBXGroup;
 			children = (
+				3C20E0061A4CB82800E17731 /* EventKit.framework */,
 				EC8B4F5C1A4B30D600932D19 /* LongBall */,
 				EC8B4F721A4B30D600932D19 /* LongBallTests */,
 				EC8B4F5B1A4B30D600932D19 /* Products */,
@@ -144,7 +146,6 @@
 				EC8B4F7F1A4B317500932D19 /* MainViewController.swift */,
 				EC8B4F611A4B30D600932D19 /* DetailViewController.swift */,
 				EC8B4F8B1A4B52B400932D19 /* ScheduleTableViewController.swift */,
-				EC8B4F8D1A4B59F200932D19 /* PickerViewController.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -253,7 +254,6 @@
 			files = (
 				EC8B4F8A1A4B442E00932D19 /* CustomNavigationBar.swift in Sources */,
 				EC8B4F801A4B317500932D19 /* MainViewController.swift in Sources */,
-				EC8B4F8E1A4B59F200932D19 /* PickerViewController.swift in Sources */,
 				EC8B4F821A4B31F600932D19 /* DataModel.swift in Sources */,
 				EC8B4F621A4B30D600932D19 /* DetailViewController.swift in Sources */,
 				EC8B4F8C1A4B52B400932D19 /* ScheduleTableViewController.swift in Sources */,
@@ -382,9 +382,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = LongBall/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -393,9 +395,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = LongBall/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

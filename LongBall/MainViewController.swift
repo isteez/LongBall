@@ -18,18 +18,11 @@ class MainViewController: UITableViewController {
         
         self.title = "LongBall"
         
-        var schedulebutton = UIBarButtonItem(image: UIImage(named: "schedule"), style: .Plain, target: self, action: "GoToSchedule")
-        navigationItem.rightBarButtonItem = schedulebutton
-        
         self.allWeeks = dataModel.GetAllWeeks()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    func GoToSchedule() {
-        self.performSegueWithIdentifier("ShowSchedule", sender: self)
     }
 
     // MARK: - Table view data source
@@ -70,11 +63,6 @@ class MainViewController: UITableViewController {
             var detailView = segue.destinationViewController as DetailViewController
             
             detailView.data = self.allWeeks.objectAtIndex(indexPath.row) as DataObject
-        }
-        else if (segue.identifier == "ShowSchedule") {
-            var scheduleView = segue.destinationViewController as ScheduleTableViewController
-            
-            scheduleView.allWeeks = self.allWeeks
         }
     }
 }

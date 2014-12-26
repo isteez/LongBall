@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>550B3D0F-8C67-4824-AC8C-DDA54FB16049</string>
+	<key>IDESourceControlProjectName</key>
+	<string>LongBall</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>31732D2FF1E8D600B03ED82D3860C810A246C690</key>
+		<string>https://github.com/isteez/LongBall.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>LongBall.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>31732D2FF1E8D600B03ED82D3860C810A246C690</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/isteez/LongBall.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>31732D2FF1E8D600B03ED82D3860C810A246C690</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>31732D2FF1E8D600B03ED82D3860C810A246C690</string>
+			<key>IDESourceControlWCCName</key>
+			<string>LongBall</string>
+		</dict>
+	</array>
+</dict>
+</plist>

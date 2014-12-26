@@ -7,44 +7,36 @@
 //
 
 import UIKit
+import EventKit
 
 class ScheduleTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
-    var allWeeks: NSArray!
+    var data: DataObject!
     var allWeekTitles: NSMutableArray = []
+    var daysPerWeek: NSInteger!
     
     @IBOutlet weak var eventTitleTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        /* 
         
-        pick a week
-        pick date / time for # of days
-        (start / end time set to 15 min - default)
+        self.title = "Add To Calendar"
         
-        */
+        self.daysPerWeek = self.data.GetDaysPerWeek().integerValue
         
-        for week in allWeeks {
-            var data = week as DataObject
-            var weekTitle = data.GetTitle() as NSString
-            
-            self.allWeekTitles.addObject(weekTitle)
-        }
-        
-        self.allWeekTitles.addObject("All 4 Weeks")
-        self.allWeekTitles.addObject("All 4 Weeks, including post training")
-        
-        //eventTitleTextField.userInteractionEnabled = false
+        //DatePicker()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    @IBAction func goBack() {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
 
-    func showPicker() {
-        var picker = UIPickerView(frame: CGRectMake(0, 0, view.frame.width, view.frame.height))
-        picker.dataSource = self
-        picker.delegate = self
+    func DatePicker() {
+        var picker = UIDatePicker(frame: CGRectMake(0, 0, view.frame.width, view.frame.height))
+        picker.backgroundColor = .whiteColor()
         
         eventTitleTextField.inputView = picker
     }
@@ -61,45 +53,137 @@ class ScheduleTableViewController: UITableViewController, UIPickerViewDataSource
     }
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        eventTitleTextField.text = self.allWeekTitles.objectAtIndex(row) as NSString
+        eventTitleTextField.resignFirstResponder()
     }
     
     // MARK: - Table view data source
 
-//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        return 1
-//    }
-//
-//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return self.allWeekTitles.count
-//    }
-//
-//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
-//
-//        // Configure the cell...
-//        cell.textLabel?.text = self.allWeekTitles.objectAtIndex(indexPath.row) as NSString
-//        
-//        return cell
-//    }
-//
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 44
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 2 + self.daysPerWeek
+    }
+
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.daysPerWeek == 2 {
+            if section == 1 || section == 2 {
+                return 2
+            }
+        } else if self.daysPerWeek == 3 {
+            if section == 1 || section == 2 || section == 3 {
+                return 2
+            }
+        }
+        return 1
+    }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if self.daysPerWeek == 2 {
+            if section == 1 || section == 2 {
+                return "Day \(section)"
+            }
+        } else if self.daysPerWeek == 3 {
+            if section == 1 || section == 2 || section == 3 {
+                return "Day \(section)"
+            }
+        }
+        return nil
+    }
+
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
+
+        cell.textLabel?.textColor = .blackColor()
+        cell.textLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18)
+        
+        var title = self.data.GetTitle() as NSString
+        var formatter = NSDateFormatter()
+        formatter.dateFormat = "MMM dd, yyyy h:mm a"
+        var now = NSDate()
+        var date = formatter.stringFromDate(now)
+        
+        if indexPath.section == 0 {
+            cell.textLabel?.text = "LongBall - \(title)"
+            cell.textLabel?.textAlignment = .Center
+            cell.userInteractionEnabled = false
+        }
+        
+        if self.daysPerWeek == 2 {
+            if indexPath.section == 1 || indexPath.section == 2 {
+                if indexPath.row == 0 {
+                    cell.textLabel?.text = "Start Date:"
+                    cell.textLabel?.textAlignment = .Left
+                    
+                    cell.detailTextLabel?.text = date
+                } else {
+                    cell.textLabel?.text = "End Date:"
+                    cell.textLabel?.textAlignment = .Left
+                    
+                    cell.detailTextLabel?.text = date
+                }
+                
+                cell.userInteractionEnabled = true
+            } else if indexPath.section == 3 {
+                cell.textLabel?.text = "Create"
+                cell.textLabel?.textAlignment = .Center
+                cell.textLabel?.textColor = UIColorFromHex(0x196CE8)
+                
+                cell.userInteractionEnabled = true
+            }
+        } else if self.daysPerWeek == 3 {
+            if indexPath.section == 1 || indexPath.section == 2 || indexPath.section == 3 {
+                if indexPath.row == 0 {
+                    cell.textLabel?.text = "Start Date:"
+                    cell.textLabel?.textAlignment = .Left
+                    
+                    cell.detailTextLabel?.text = date
+                } else {
+                    cell.textLabel?.text = "End Date:"
+                    cell.textLabel?.textAlignment = .Left
+                    
+                    cell.detailTextLabel?.text = date
+                }
+                
+                cell.userInteractionEnabled = true
+            } else if indexPath.section == 4 {
+                cell.textLabel?.text = "Create"
+                cell.textLabel?.textAlignment = .Center
+                cell.textLabel?.textColor = UIColorFromHex(0x196CE8)
+                
+                cell.userInteractionEnabled = true
+            }
+        }
+        
+        return cell
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        //self.performSegueWithIdentifier("PickTitle", sender: self)
-        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        if self.daysPerWeek == 2 {
+            if indexPath.section == 3 {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
+        } else if self.daysPerWeek == 3 {
+            if indexPath.section == 4 {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
+        }
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if (segue.identifier == "PickTitle") {
-            var pickerView = segue.destinationViewController as PickerViewController
-            
-            pickerView.allWeeks = self.allWeekTitles
-        }
+    // MARK: - Add to calendar
+    
+    func AddToCalendar(startDate: NSDate, endDate: NSDate) {
+        var eventStore = EKEventStore()
+        var event = EKEvent(eventStore: eventStore)
+        
+        eventStore.requestAccessToEntityType(EKEntityType(), completion: { (granted, error) -> Void in
+            if granted {
+                event.startDate = startDate
+                event.endDate = endDate
+                
+                event.calendar = eventStore.defaultCalendarForNewEvents
+                eventStore.saveEvent(event, span: EKSpanThisEvent, error: nil)
+            }
+        })
     }
 }

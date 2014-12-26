@@ -17,7 +17,10 @@ class DetailViewController: UITableViewController {
         self.title = data.GetTitle()
         
         var backbutton = UIBarButtonItem(image: UIImage(named: "back"), style: .Plain, target: self, action: "goBack")
-        navigationItem.leftBarButtonItem = backbutton        
+        navigationItem.leftBarButtonItem = backbutton
+        
+        var schedulebutton = UIBarButtonItem(image: UIImage(named: "schedule"), style: .Plain, target: self, action: "GoToSchedule")
+        navigationItem.rightBarButtonItem = schedulebutton
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,6 +29,10 @@ class DetailViewController: UITableViewController {
     
     func goBack() {
         navigationController?.popViewControllerAnimated(true)
+    }
+    
+    func GoToSchedule() {
+        self.performSegueWithIdentifier("ShowSchedule", sender: self)
     }
     
     // MARK: - Table view data source
@@ -54,7 +61,7 @@ class DetailViewController: UITableViewController {
         if section == 0 {
             return nil
         }
-        return "After completing these sets with normal your dexterity, switch to your opposite dexerity and complete the sets again."
+        return "After completing these sets with your normal dexterity, switch to your opposite dexerity and complete the sets again."
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -81,6 +88,17 @@ class DetailViewController: UITableViewController {
         cell.detailTextLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18)
         
         return cell
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if (segue.identifier == "ShowSchedule") {
+            var nav = segue.destinationViewController as UINavigationController
+            var scheduleView = nav.viewControllers[0] as ScheduleTableViewController
+            
+            scheduleView.data = self.data
+        }
     }
 }
 
