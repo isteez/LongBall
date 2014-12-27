@@ -68,19 +68,19 @@ class DetailViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
         
         if indexPath.section == 0 {
-            cell.textLabel?.text = "Days Per Week:"
+            cell.textLabel?.text = "Days Per Week"
             cell.detailTextLabel?.text = data.GetDaysPerWeek()
         } else if indexPath.section == 1 && indexPath.row == 0 {
-            cell.textLabel?.text = "Sets:"
+            cell.textLabel?.text = "Sets"
             cell.detailTextLabel?.text = data.GetOverspeedSets()
         } else if indexPath.section == 1 && indexPath.row == 1 {
-            cell.textLabel?.text = "Reps:"
+            cell.textLabel?.text = "Reps"
             cell.detailTextLabel?.text = data.GetOverspeedReps()
         } else if indexPath.section == 2 && indexPath.row == 0 {
-            cell.textLabel?.text = "Sets:"
+            cell.textLabel?.text = "Sets"
             cell.detailTextLabel?.text = data.GetWeightedSets()
         } else {
-            cell.textLabel?.text = "Reps:"
+            cell.textLabel?.text = "Reps"
             cell.detailTextLabel?.text = data.GetWeightedReps()
         }
         

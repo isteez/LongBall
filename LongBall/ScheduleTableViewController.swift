@@ -9,10 +9,13 @@
 import UIKit
 import EventKit
 
-class ScheduleTableViewController: UITableViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class ScheduleTableViewController: UITableViewController, SKDatePickerDelegate {
     var data: DataObject!
     var allWeekTitles: NSMutableArray = []
     var daysPerWeek: NSInteger!
+    var datesArray: NSMutableArray = []
+    var eventsArray: NSMutableArray = [0,0,0,0,0,0]
+    var calendar: EKCalendar!
     
     @IBOutlet weak var eventTitleTextField: UITextField!
     
@@ -22,8 +25,6 @@ class ScheduleTableViewController: UITableViewController, UIPickerViewDataSource
         self.title = "Add To Calendar"
         
         self.daysPerWeek = self.data.GetDaysPerWeek().integerValue
-        
-        //DatePicker()
     }
 
     override func didReceiveMemoryWarning() {
@@ -34,29 +35,6 @@ class ScheduleTableViewController: UITableViewController, UIPickerViewDataSource
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 
-    func DatePicker() {
-        var picker = UIDatePicker(frame: CGRectMake(0, 0, view.frame.width, view.frame.height))
-        picker.backgroundColor = .whiteColor()
-        
-        eventTitleTextField.inputView = picker
-    }
-    
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return self.allWeekTitles.count
-    }
-    
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
-        return self.allWeekTitles.objectAtIndex(row) as NSString
-    }
-    
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        eventTitleTextField.text = self.allWeekTitles.objectAtIndex(row) as NSString
-        eventTitleTextField.resignFirstResponder()
-    }
-    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -90,19 +68,72 @@ class ScheduleTableViewController: UITableViewController, UIPickerViewDataSource
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
-
+        var cellIdentifier = "Cell"
+        
+        if self.daysPerWeek == 2 {
+            if indexPath.section == 1 || indexPath.section == 2 {
+                cellIdentifier = "Cell2"
+            }
+        } else if self.daysPerWeek == 3 {
+            if indexPath.section == 1 || indexPath.section == 2 || indexPath.section == 3 {
+                cellIdentifier = "Cell2"
+            }
+        }
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as UITableViewCell
+        
+        return CellLogic(cell, indexPath: indexPath)
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if self.daysPerWeek == 2 {
+            if indexPath.section == 3 {
+                AddToCalendar(self.eventsArray[0] as NSDate, endDate: self.eventsArray[2] as NSDate)
+                AddToCalendar(self.eventsArray[1] as NSDate, endDate: self.eventsArray[3] as NSDate)
+        
+                self.dismissViewControllerAnimated(true, completion: nil)
+            } else if indexPath.section != 0 {
+                self.performSegueWithIdentifier("ShowPicker", sender: indexPath)
+            }
+        } else if self.daysPerWeek == 3 {
+            if indexPath.section == 4 {
+                AddToCalendar(self.eventsArray[0] as NSDate, endDate: self.eventsArray[3] as NSDate)
+                AddToCalendar(self.eventsArray[1] as NSDate, endDate: self.eventsArray[4] as NSDate)
+                AddToCalendar(self.eventsArray[2] as NSDate, endDate: self.eventsArray[5] as NSDate)
+                
+                self.dismissViewControllerAnimated(true, completion: nil)
+            } else if indexPath.section != 0 {
+                self.performSegueWithIdentifier("ShowPicker", sender: indexPath)
+            }
+        }
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    // MARK: - Table view cell logic
+    
+    func CellLogic(cell: UITableViewCell, indexPath: NSIndexPath) -> UITableViewCell {
         cell.textLabel?.textColor = .blackColor()
         cell.textLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18)
         
         var title = self.data.GetTitle() as NSString
         var formatter = NSDateFormatter()
         formatter.dateFormat = "MMM dd, yyyy h:mm a"
-        var now = NSDate()
-        var date = formatter.stringFromDate(now)
+        
+        var startDate = NSDate()
+        for item in self.datesArray {
+            var dateArray = item as NSArray
+            var dateArrayIndexPath = dateArray.objectAtIndex(1) as NSIndexPath
+            
+            if dateArrayIndexPath.section == indexPath.section &&
+                dateArrayIndexPath.row == indexPath.row {
+                startDate = dateArray.objectAtIndex(0) as NSDate
+            }
+        }
+        var date = formatter.stringFromDate(startDate)
         
         if indexPath.section == 0 {
-            cell.textLabel?.text = "LongBall - \(title)"
+            cell.textLabel?.text = "LongBall Training: \(title)"
             cell.textLabel?.textAlignment = .Center
             cell.userInteractionEnabled = false
         }
@@ -110,15 +141,17 @@ class ScheduleTableViewController: UITableViewController, UIPickerViewDataSource
         if self.daysPerWeek == 2 {
             if indexPath.section == 1 || indexPath.section == 2 {
                 if indexPath.row == 0 {
-                    cell.textLabel?.text = "Start Date:"
+                    cell.textLabel?.text = "Starts"
                     cell.textLabel?.textAlignment = .Left
                     
                     cell.detailTextLabel?.text = date
+                    self.eventsArray[indexPath.section - 1] = startDate
                 } else {
-                    cell.textLabel?.text = "End Date:"
+                    cell.textLabel?.text = "Ends"
                     cell.textLabel?.textAlignment = .Left
                     
                     cell.detailTextLabel?.text = date
+                    self.eventsArray[indexPath.section + 1] = startDate
                 }
                 
                 cell.userInteractionEnabled = true
@@ -132,15 +165,17 @@ class ScheduleTableViewController: UITableViewController, UIPickerViewDataSource
         } else if self.daysPerWeek == 3 {
             if indexPath.section == 1 || indexPath.section == 2 || indexPath.section == 3 {
                 if indexPath.row == 0 {
-                    cell.textLabel?.text = "Start Date:"
+                    cell.textLabel?.text = "Starts"
                     cell.textLabel?.textAlignment = .Left
                     
                     cell.detailTextLabel?.text = date
+                    self.eventsArray[indexPath.section - 1] = startDate
                 } else {
-                    cell.textLabel?.text = "End Date:"
+                    cell.textLabel?.text = "Ends"
                     cell.textLabel?.textAlignment = .Left
                     
                     cell.detailTextLabel?.text = date
+                    self.eventsArray[indexPath.section + 2] = startDate
                 }
                 
                 cell.userInteractionEnabled = true
@@ -152,22 +187,16 @@ class ScheduleTableViewController: UITableViewController, UIPickerViewDataSource
                 cell.userInteractionEnabled = true
             }
         }
-        
+
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if self.daysPerWeek == 2 {
-            if indexPath.section == 3 {
-                self.dismissViewControllerAnimated(true, completion: nil)
-            }
-        } else if self.daysPerWeek == 3 {
-            if indexPath.section == 4 {
-                self.dismissViewControllerAnimated(true, completion: nil)
-            }
-        }
-        
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    // MARK: - GetDate
+    
+    func GetDate(date: NSDate, indexPath: NSIndexPath) {
+        self.datesArray.addObject(NSArray(objects: date, indexPath))
+        self.tableView.reloadData()
+        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
     // MARK: - Add to calendar
@@ -175,15 +204,53 @@ class ScheduleTableViewController: UITableViewController, UIPickerViewDataSource
     func AddToCalendar(startDate: NSDate, endDate: NSDate) {
         var eventStore = EKEventStore()
         var event = EKEvent(eventStore: eventStore)
+        var longBallCal: EKCalendar!
+        
+        if self.data.GetTitle() == "Weekly Routine" {
+            var repeat = EKRecurrenceRule(recurrenceWithFrequency: EKRecurrenceFrequencyWeekly, interval: 1, end: nil)
+            event.recurrenceRules = [repeat]
+        }
+
+        if self.calendar == nil {
+            SetCalendar(eventStore)
+        }
         
         eventStore.requestAccessToEntityType(EKEntityType(), completion: { (granted, error) -> Void in
             if granted {
+                event.title = NSString(format: "LongBall Training: %@", self.data.GetTitle())
                 event.startDate = startDate
                 event.endDate = endDate
-                
-                event.calendar = eventStore.defaultCalendarForNewEvents
+                event.calendar = self.calendar
                 eventStore.saveEvent(event, span: EKSpanThisEvent, error: nil)
             }
         })
+    }
+    
+    func SetCalendar(eventStore: EKEventStore) {
+        var calendarTitle = "LongBall Training"
+        var currentCalendars = eventStore.calendarsForEntityType(EKEntityTypeEvent) as NSArray
+        var sortBy = NSPredicate(format: "title matches %@", calendarTitle)
+        var filtered = currentCalendars.filteredArrayUsingPredicate(sortBy!) as NSArray
+        
+        if filtered.count > 0 {
+            self.calendar = filtered.firstObject as EKCalendar
+        } else {
+            self.calendar = EKCalendar(forEntityType: EKEntityTypeEvent, eventStore: eventStore)
+            self.calendar.title = "LongBall Training"
+            self.calendar.source = eventStore.defaultCalendarForNewEvents.source
+            eventStore.saveCalendar(self.calendar, commit: true, error: nil)
+        }
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ShowPicker" {
+            var pickerView = segue.destinationViewController as PickerViewController
+            var indexPath = sender as NSIndexPath
+            
+            pickerView.delegate = self
+            pickerView.indexPath = indexPath
+        }
     }
 }

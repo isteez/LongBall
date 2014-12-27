@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="5I2-Hd-mnf">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Root View Controller-->
@@ -108,6 +109,26 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell2" textLabel="UQc-qI-NVX" detailTextLabel="QeL-ps-hgm" style="IBUITableViewCellStyleValue1" id="chu-cs-TX9">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="chu-cs-TX9" id="dCk-5B-bu3">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UQc-qI-NVX">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QeL-ps-hgm">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                         </prototypes>
                         <sections/>
                         <connections>
@@ -123,10 +144,63 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="fJ4-Ew-S7Z" kind="presentation" identifier="ShowPicker" modalTransitionStyle="crossDissolve" id="s2X-FD-3Wm"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VeX-Vn-ndk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3341" y="411"/>
+        </scene>
+        <!--Picker View Controller-->
+        <scene sceneID="EnQ-h0-ccM">
+            <objects>
+                <viewController id="fJ4-Ew-S7Z" customClass="PickerViewController" customModule="LongBall" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qvn-ek-qar"/>
+                        <viewControllerLayoutGuide type="bottom" id="Qr2-nA-yNV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TOG-cZ-id8">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="hiP-oq-Mox">
+                                <rect key="frame" x="0.0" y="192" width="600" height="216"/>
+                                <date key="date" timeIntervalSinceReferenceDate="441312141.55598801">
+                                    <!--2014-12-26 18:42:21 +0000-->
+                                </date>
+                            </datePicker>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a5k-fG-yPy">
+                                <rect key="frame" x="515" y="520" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="Xqc-Qt-SFe"/>
+                                    <constraint firstAttribute="height" constant="60" id="ijC-pW-6TL"/>
+                                </constraints>
+                                <state key="normal" image="accept">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="goBack" destination="fJ4-Ew-S7Z" eventType="touchUpInside" id="oTl-mp-Qwv"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hiP-oq-Mox" firstAttribute="top" secondItem="qvn-ek-qar" secondAttribute="bottom" constant="172" id="DVH-tP-8b7"/>
+                            <constraint firstItem="hiP-oq-Mox" firstAttribute="leading" secondItem="TOG-cZ-id8" secondAttribute="leading" id="IU5-i9-jwe"/>
+                            <constraint firstAttribute="trailing" secondItem="hiP-oq-Mox" secondAttribute="trailing" id="sFN-dF-nLk"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="a5k-fG-yPy" secondAttribute="trailing" constant="9" id="tl3-Uy-JyV"/>
+                            <constraint firstAttribute="bottom" secondItem="a5k-fG-yPy" secondAttribute="bottom" constant="20" symbolic="YES" id="wh0-IN-GYe"/>
+                            <constraint firstItem="hiP-oq-Mox" firstAttribute="centerY" secondItem="TOG-cZ-id8" secondAttribute="centerY" id="zI8-yj-Dzk"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="datePicker" destination="hiP-oq-Mox" id="PLg-2n-nrN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hoT-eJ-6rA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4053" y="411"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="YaM-Ie-6w5">
@@ -145,4 +219,7 @@
             <point key="canvasLocation" x="306" y="411"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="accept" width="68" height="68"/>
+    </resources>
 </document>
