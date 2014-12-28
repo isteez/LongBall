@@ -10,6 +10,8 @@
 		3C20E0071A4CB82800E17731 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C20E0061A4CB82800E17731 /* EventKit.framework */; };
 		3C5212851A4DF53500F688FA /* PickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5212841A4DF53500F688FA /* PickerViewController.swift */; };
 		3C5212871A4E1F6E00F688FA /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C5212861A4E1F6E00F688FA /* background.png */; };
+		3CB5054D1A4F607200BEB39A /* speedBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 3CB5054C1A4F607200BEB39A /* speedBackground.png */; };
+		3CB5054F1A4F608600BEB39A /* SwingSpeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB5054E1A4F608600BEB39A /* SwingSpeedViewController.swift */; };
 		EC8B4F601A4B30D600932D19 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8B4F5F1A4B30D600932D19 /* AppDelegate.swift */; };
 		EC8B4F621A4B30D600932D19 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC8B4F611A4B30D600932D19 /* DetailViewController.swift */; };
 		EC8B4F651A4B30D600932D19 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC8B4F631A4B30D600932D19 /* Main.storyboard */; };
@@ -38,6 +40,8 @@
 		3C20E0061A4CB82800E17731 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		3C5212841A4DF53500F688FA /* PickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerViewController.swift; sourceTree = "<group>"; };
 		3C5212861A4E1F6E00F688FA /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		3CB5054C1A4F607200BEB39A /* speedBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speedBackground.png; sourceTree = "<group>"; };
+		3CB5054E1A4F608600BEB39A /* SwingSpeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwingSpeedViewController.swift; sourceTree = "<group>"; };
 		EC8B4F5A1A4B30D600932D19 /* LongBall.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LongBall.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC8B4F5E1A4B30D600932D19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EC8B4F5F1A4B30D600932D19 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				3C5212861A4E1F6E00F688FA /* background.png */,
+				3CB5054C1A4F607200BEB39A /* speedBackground.png */,
 				EC8B4F891A4B442E00932D19 /* CustomNavigationBar.swift */,
 				EC8B4F5E1A4B30D600932D19 /* Info.plist */,
 			);
@@ -152,6 +157,7 @@
 				EC8B4F611A4B30D600932D19 /* DetailViewController.swift */,
 				EC8B4F8B1A4B52B400932D19 /* ScheduleTableViewController.swift */,
 				3C5212841A4DF53500F688FA /* PickerViewController.swift */,
+				3CB5054E1A4F608600BEB39A /* SwingSpeedViewController.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -240,6 +246,7 @@
 				EC8B4F651A4B30D600932D19 /* Main.storyboard in Resources */,
 				3C5212871A4E1F6E00F688FA /* background.png in Resources */,
 				EC8B4F6A1A4B30D600932D19 /* LaunchScreen.xib in Resources */,
+				3CB5054D1A4F607200BEB39A /* speedBackground.png in Resources */,
 				EC8B4F671A4B30D600932D19 /* Images.xcassets in Resources */,
 				EC8B4F861A4B321D00932D19 /* Data.json in Resources */,
 			);
@@ -259,6 +266,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CB5054F1A4F608600BEB39A /* SwingSpeedViewController.swift in Sources */,
 				EC8B4F8A1A4B442E00932D19 /* CustomNavigationBar.swift in Sources */,
 				EC8B4F801A4B317500932D19 /* MainViewController.swift in Sources */,
 				3C5212851A4DF53500F688FA /* PickerViewController.swift in Sources */,

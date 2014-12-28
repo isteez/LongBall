@@ -13,9 +13,11 @@ class ScheduleTableViewController: UITableViewController, SKDatePickerDelegate {
     var data: DataObject!
     var allWeekTitles: NSMutableArray = []
     var daysPerWeek: NSInteger!
-    var datesArray: NSMutableArray = []
-    var eventsArray: NSMutableArray = [0,0,0,0,0,0]
+    var datesArray: NSMutableArray = [[0],[0],[0],[0],[0],[0]]
+    var eventsArray: NSMutableArray = [[0],[0],[0],[0],[0],[0]]
     var calendar: EKCalendar!
+    var eventStore = EKEventStore()
+    var canAddToCalendar: Bool = false
     
     @IBOutlet weak var eventTitleTextField: UITextField!
     
@@ -25,6 +27,12 @@ class ScheduleTableViewController: UITableViewController, SKDatePickerDelegate {
         self.title = "Add To Calendar"
         
         self.daysPerWeek = self.data.GetDaysPerWeek().integerValue
+        
+        self.eventStore.requestAccessToEntityType(EKEntityType(), completion: { (granted, error) -> Void in
+            if granted {
+                self.canAddToCalendar = true
+            }
+        })
     }
 
     override func didReceiveMemoryWarning() {
@@ -88,20 +96,23 @@ class ScheduleTableViewController: UITableViewController, SKDatePickerDelegate {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if self.daysPerWeek == 2 {
             if indexPath.section == 3 {
-                AddToCalendar(self.eventsArray[0] as NSDate, endDate: self.eventsArray[2] as NSDate)
-                AddToCalendar(self.eventsArray[1] as NSDate, endDate: self.eventsArray[3] as NSDate)
-        
-                self.dismissViewControllerAnimated(true, completion: nil)
+                if AddToCalendar(self.eventsArray[0][0] as NSObject, endDate: self.eventsArray[2][0] as NSObject) {
+                    if AddToCalendar(self.eventsArray[1][0] as NSObject, endDate: self.eventsArray[3][0] as NSObject) {
+                        self.dismissViewControllerAnimated(true, completion: nil)
+                    }
+                }
             } else if indexPath.section != 0 {
                 self.performSegueWithIdentifier("ShowPicker", sender: indexPath)
             }
         } else if self.daysPerWeek == 3 {
             if indexPath.section == 4 {
-                AddToCalendar(self.eventsArray[0] as NSDate, endDate: self.eventsArray[3] as NSDate)
-                AddToCalendar(self.eventsArray[1] as NSDate, endDate: self.eventsArray[4] as NSDate)
-                AddToCalendar(self.eventsArray[2] as NSDate, endDate: self.eventsArray[5] as NSDate)
-                
-                self.dismissViewControllerAnimated(true, completion: nil)
+                if AddToCalendar(self.eventsArray[0][0] as NSObject, endDate: self.eventsArray[3][0] as NSObject) {
+                    if AddToCalendar(self.eventsArray[1][0] as NSObject, endDate: self.eventsArray[4][0] as NSObject) {
+                        if AddToCalendar(self.eventsArray[2][0] as NSObject, endDate: self.eventsArray[5][0] as NSObject) {
+                            self.dismissViewControllerAnimated(true, completion: nil)
+                        }
+                    }
+                }
             } else if indexPath.section != 0 {
                 self.performSegueWithIdentifier("ShowPicker", sender: indexPath)
             }
@@ -113,24 +124,14 @@ class ScheduleTableViewController: UITableViewController, SKDatePickerDelegate {
     // MARK: - Table view cell logic
     
     func CellLogic(cell: UITableViewCell, indexPath: NSIndexPath) -> UITableViewCell {
+        var detailDefault = "tap to set"
+        
         cell.textLabel?.textColor = .blackColor()
         cell.textLabel?.font = UIFont(name: "HelveticaNeue-Light", size: 18)
         
         var title = self.data.GetTitle() as NSString
         var formatter = NSDateFormatter()
         formatter.dateFormat = "MMM dd, yyyy h:mm a"
-        
-        var startDate = NSDate()
-        for item in self.datesArray {
-            var dateArray = item as NSArray
-            var dateArrayIndexPath = dateArray.objectAtIndex(1) as NSIndexPath
-            
-            if dateArrayIndexPath.section == indexPath.section &&
-                dateArrayIndexPath.row == indexPath.row {
-                startDate = dateArray.objectAtIndex(0) as NSDate
-            }
-        }
-        var date = formatter.stringFromDate(startDate)
         
         if indexPath.section == 0 {
             cell.textLabel?.text = "LongBall Training: \(title)"
@@ -144,14 +145,24 @@ class ScheduleTableViewController: UITableViewController, SKDatePickerDelegate {
                     cell.textLabel?.text = "Starts"
                     cell.textLabel?.textAlignment = .Left
                     
-                    cell.detailTextLabel?.text = date
-                    self.eventsArray[indexPath.section - 1] = startDate
+                    if self.datesArray[indexPath.section - 1] as NSObject == [0] {
+                        cell.detailTextLabel?.text = detailDefault
+                    } else {
+                        cell.detailTextLabel?.text =
+                            formatter.stringFromDate(self.datesArray[indexPath.section - 1][0] as NSDate)
+                    }
+                    self.eventsArray[indexPath.section - 1] = self.datesArray[indexPath.section - 1]
                 } else {
                     cell.textLabel?.text = "Ends"
                     cell.textLabel?.textAlignment = .Left
                     
-                    cell.detailTextLabel?.text = date
-                    self.eventsArray[indexPath.section + 1] = startDate
+                    if self.datesArray[indexPath.section + 1] as NSObject == [0] {
+                        cell.detailTextLabel?.text = detailDefault
+                    } else {
+                        cell.detailTextLabel?.text =
+                            formatter.stringFromDate(self.datesArray[indexPath.section + 1][0] as NSDate)
+                    }
+                    self.eventsArray[indexPath.section + 1] = self.datesArray[indexPath.section + 1]
                 }
                 
                 cell.userInteractionEnabled = true
@@ -168,14 +179,25 @@ class ScheduleTableViewController: UITableViewController, SKDatePickerDelegate {
                     cell.textLabel?.text = "Starts"
                     cell.textLabel?.textAlignment = .Left
                     
-                    cell.detailTextLabel?.text = date
-                    self.eventsArray[indexPath.section - 1] = startDate
+                    if self.datesArray[indexPath.section - 1] as NSObject == [0] {
+                        cell.detailTextLabel?.text = detailDefault
+                    } else {
+                        cell.detailTextLabel?.text =
+                            formatter.stringFromDate(self.datesArray[indexPath.section - 1][0] as NSDate)
+                    }
+                    self.eventsArray[indexPath.section - 1] = self.datesArray[indexPath.section - 1]
+                    
                 } else {
                     cell.textLabel?.text = "Ends"
                     cell.textLabel?.textAlignment = .Left
                     
-                    cell.detailTextLabel?.text = date
-                    self.eventsArray[indexPath.section + 2] = startDate
+                    if self.datesArray[indexPath.section + 2] as NSObject == [0] {
+                        cell.detailTextLabel?.text = detailDefault
+                    } else {
+                        cell.detailTextLabel?.text =
+                            formatter.stringFromDate(self.datesArray[indexPath.section + 2][0] as NSDate)
+                    }
+                    self.eventsArray[indexPath.section + 2] = self.datesArray[indexPath.section + 2]
                 }
                 
                 cell.userInteractionEnabled = true
@@ -194,36 +216,96 @@ class ScheduleTableViewController: UITableViewController, SKDatePickerDelegate {
     // MARK: - GetDate
     
     func GetDate(date: NSDate, indexPath: NSIndexPath) {
-        self.datesArray.addObject(NSArray(objects: date, indexPath))
+        if indexPath.section == 1 {
+            if indexPath.row == 0 {
+                self.datesArray[0] = NSArray(objects: date, indexPath)
+            } else {
+                self.datesArray[2] = NSArray(objects: date, indexPath)
+            }
+        } else if indexPath.section == 2 {
+            if self.daysPerWeek == 2 {
+                if indexPath.row == 0 {
+                    self.datesArray[1] = NSArray(objects: date, indexPath)
+                } else {
+                    self.datesArray[3] = NSArray(objects: date, indexPath)
+                }
+            } else {
+                if indexPath.row == 0 {
+                    self.datesArray[1] = NSArray(objects: date, indexPath)
+                } else {
+                    self.datesArray[4] = NSArray(objects: date, indexPath)
+                }
+            }
+        } else if indexPath.section == 3 {
+            if indexPath.row == 0 {
+                self.datesArray[2] = NSArray(objects: date, indexPath)
+            } else {
+                self.datesArray[5] = NSArray(objects: date, indexPath)
+            }
+        }
+        
         self.tableView.reloadData()
         self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
     }
     
     // MARK: - Add to calendar
     
-    func AddToCalendar(startDate: NSDate, endDate: NSDate) {
-        var eventStore = EKEventStore()
-        var event = EKEvent(eventStore: eventStore)
-        var longBallCal: EKCalendar!
+    func AddToCalendar(startDate: NSObject, endDate: NSObject) -> Bool {
+        var returnStatus: Bool = false
         
-        if self.data.GetTitle() == "Weekly Routine" {
-            var repeat = EKRecurrenceRule(recurrenceWithFrequency: EKRecurrenceFrequencyWeekly, interval: 1, end: nil)
-            event.recurrenceRules = [repeat]
-        }
-
-        if self.calendar == nil {
-            SetCalendar(eventStore)
-        }
-        
-        eventStore.requestAccessToEntityType(EKEntityType(), completion: { (granted, error) -> Void in
-            if granted {
-                event.title = NSString(format: "LongBall Training: %@", self.data.GetTitle())
-                event.startDate = startDate
-                event.endDate = endDate
-                event.calendar = self.calendar
-                eventStore.saveEvent(event, span: EKSpanThisEvent, error: nil)
+        if startDate as NSObject != 0 && endDate as NSObject != 0 {
+            var event = EKEvent(eventStore: self.eventStore)
+            var longBallCal: EKCalendar!
+            var compare: NSTimeInterval = (startDate as NSDate).timeIntervalSinceDate(endDate as NSDate)
+            
+            if compare < 0 {
+                if self.data.GetTitle() == "Weekly Routine" {
+                    var repeat = EKRecurrenceRule(recurrenceWithFrequency: EKRecurrenceFrequencyWeekly, interval: 1, end: nil)
+                    event.recurrenceRules = [repeat]
+                }
+                
+                if canAddToCalendar {
+                    if self.calendar == nil {
+                        SetCalendar(self.eventStore)
+                    }
+                    
+                    event.title = NSString(format: "LongBall Training: %@", self.data.GetTitle())
+                    event.startDate = startDate as NSDate
+                    event.endDate = endDate  as NSDate
+                    event.calendar = self.calendar
+                    event.addAlarm(EKAlarm(absoluteDate: startDate as NSDate))
+                    self.eventStore.saveEvent(event, span: EKSpanThisEvent, error: nil)
+                    
+                    returnStatus = true
+                } else {
+                    var alert = UIAlertView(
+                        title: "Unable to Add Calendar Event",
+                        message: "LongBall needs to access your calendar. You can grant access by going to your device's Settings -> Privacy -> Calendars -> LongBall",
+                        delegate: self,
+                        cancelButtonTitle: "Okay"
+                    )
+                    alert.show()
+                }
+            } else {
+                var alert = UIAlertView(
+                    title: "Unable to Add Calendar Event",
+                    message: "It looks like an event is ending before it starts. Double check each day's start and end times.",
+                    delegate: self,
+                    cancelButtonTitle: "Okay"
+                )
+                alert.show()
             }
-        })
+        } else {
+            var alert = UIAlertView(
+                title: "Unable to Add Calendar Event",
+                message: "It looks like a day hasn't been set. Double check each day's start and end times.",
+                delegate: self,
+                cancelButtonTitle: "Okay"
+            )
+            alert.show()
+        }
+        
+        return returnStatus
     }
     
     func SetCalendar(eventStore: EKEventStore) {

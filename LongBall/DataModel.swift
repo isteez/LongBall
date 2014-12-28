@@ -29,4 +29,25 @@ class DataModel: NSObject {
     func GetNumberOfWeeks() -> NSInteger {
         return self.allWeeks.count
     }
+    
+    func GetTrackingTitles() -> NSArray {
+        var titles = ["Current Swing Speed", "All Swings"]
+        return titles
+    }
+    
+    func GetSwingSpeeds() -> NSArray {
+        var speeds: NSMutableArray = []
+        
+        for var i=50; i < 200; i++ {
+            speeds.addObject(NSString(format: "%i mph", i))
+        }
+        speeds.insertObject("tap to add", atIndex: 0)
+        
+        return speeds
+    }
+    
+    func GetExtraTitles() -> NSArray {
+        var titles = ["About", "How To", "Marketplace"]
+        return titles
+    }
 }
