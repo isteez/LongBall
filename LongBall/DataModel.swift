@@ -47,7 +47,7 @@ class DataModel: NSObject {
     }
     
     func GetExtraTitles() -> NSArray {
-        var titles = ["About", "How To", "Marketplace"]
+        var titles = ["About", "How To"]
         return titles
     }
 }

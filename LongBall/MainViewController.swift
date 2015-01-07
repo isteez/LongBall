@@ -88,8 +88,12 @@ class MainViewController: UITableViewController, SKSpeedPickerDelegate {
         } else {
             var data = dataModel.GetExtraTitles().objectAtIndex(indexPath.row) as NSString
             
+            if indexPath.row == 0 {
+                cell.accessoryType = UITableViewCellAccessoryType.None
+            } else {
+                cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+            }
             cell.textLabel?.text = data as NSString
-            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
             cell.detailTextLabel?.text = nil
         }
         
@@ -104,6 +108,10 @@ class MainViewController: UITableViewController, SKSpeedPickerDelegate {
         } else if indexPath.section == 1 {
             if indexPath.row == 0 {
                 self.performSegueWithIdentifier("SwingSpeedPicker", sender: indexPath)
+            }
+        } else if indexPath.section == 2 {
+            if indexPath.row == 0 {
+                self.performSegueWithIdentifier("ShowInfo", sender: indexPath)
             }
         }
         
